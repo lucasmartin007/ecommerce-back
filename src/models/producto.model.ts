@@ -21,6 +21,12 @@ export class Producto extends Entity {
   descripcion?: string;
 
   @property({
+    type: 'number',
+    required: true
+  })
+  precio: number;
+
+  @property({
     type: 'boolean',
     required: true,
   })
