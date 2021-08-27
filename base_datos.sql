@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-08-2021 a las 16:37:12
+-- Tiempo de generación: 27-08-2021 a las 02:24:10
 -- Versión del servidor: 10.4.20-MariaDB
 -- Versión de PHP: 7.3.29
 
@@ -30,8 +30,16 @@ SET time_zone = "+00:00";
 CREATE TABLE `ordenes` (
   `id` int(11) NOT NULL,
   `usuarioId` varchar(512) NOT NULL,
-  `precioTotal` int(11) DEFAULT NULL
+  `precioTotal` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `ordenes`
+--
+
+INSERT INTO `ordenes` (`id`, `usuarioId`, `precioTotal`, `created_at`) VALUES
+(3, '210b587c-f59c-4897-ba0d-f13f671bb82f', 450, '2021-08-25 23:11:49');
 
 -- --------------------------------------------------------
 
@@ -46,6 +54,14 @@ CREATE TABLE `ordenesproductos` (
   `cantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `ordenesproductos`
+--
+
+INSERT INTO `ordenesproductos` (`id`, `ordenId`, `productoId`, `cantidad`) VALUES
+(1, 3, 1, 10),
+(2, 3, 2, 20);
+
 -- --------------------------------------------------------
 
 --
@@ -56,18 +72,18 @@ CREATE TABLE `producto` (
   `id` int(11) NOT NULL,
   `nombre` varchar(512) NOT NULL,
   `descripcion` varchar(512) DEFAULT NULL,
-  `tiene_imagen` tinyint(1) NOT NULL,
-  `precio` int(11) NOT NULL
+  `precio` int(11) NOT NULL,
+  `tiene_imagen` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`id`, `nombre`, `descripcion`, `tiene_imagen`, `precio`) VALUES
-(1, 'Clavo', 'Clavo tamaño 1', 0, 0),
-(2, 'Tornillo', 'Tornillo tamaño 1', 0, 0),
-(3, 'Martillo', 'Martillo mediano', 0, 0);
+INSERT INTO `producto` (`id`, `nombre`, `descripcion`, `precio`, `tiene_imagen`) VALUES
+(1, 'Clavo', 'Clavo tamaño 1', 15, 0),
+(2, 'Tornillo', 'Tornillo tamaño 1', 15, 0),
+(3, 'Martillo', 'Martillo mediano', 350, 0);
 
 -- --------------------------------------------------------
 
@@ -142,13 +158,13 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `ordenes`
 --
 ALTER TABLE `ordenes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `ordenesproductos`
 --
 ALTER TABLE `ordenesproductos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`

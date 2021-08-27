@@ -21,6 +21,12 @@ export class Ordenes extends Entity {
   })
   precioTotal?: number;
 
+  @property({
+    type: 'date',
+    required: true
+  })
+  created_at: Date;
+
 
   constructor(data?: Partial<Ordenes>) {
     super(data);
