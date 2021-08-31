@@ -32,6 +32,12 @@ export class Producto extends Entity {
   })
   tiene_imagen: boolean;
 
+  @property({
+    type: 'string',
+    required: false,
+  })
+  url_imagen?: string;
+
 
   constructor(data?: Partial<Producto>) {
     super(data);

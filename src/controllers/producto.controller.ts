@@ -4,18 +4,12 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {Producto} from '../models';
 import {ProductoRepository} from '../repositories';
@@ -23,8 +17,8 @@ import {ProductoRepository} from '../repositories';
 export class ProductoController {
   constructor(
     @repository(ProductoRepository)
-    public productoRepository : ProductoRepository,
-  ) {}
+    public productoRepository: ProductoRepository,
+  ) { }
 
   @post('/productos')
   @response(200, {
@@ -146,5 +140,87 @@ export class ProductoController {
   })
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.productoRepository.deleteById(id);
+  }
+
+  //
+  dev_base64(nom_imagen: string): string {
+    let ruta_imagen = "./uploads/productos/" + nom_imagen
+    const fs = require('fs');
+    fs.readFile(ruta_imagen, 'base64', (err: any, data: string) => {
+      if (err) {
+        console.error(err)
+        // return
+      }
+      try {
+        console.log(data)
+        return data
+      } catch (error) {
+        console.log(error)
+        return "Error: " + error
+      }
+    })
+    return ""
+  }
+
+  // @get('/producto-imagen/{id_producto}')
+  // @response(200, {
+  //   description: 'Producto image',
+  //   content: {
+  //     'application/json': {
+  //       schema: {
+  //         type: 'array',
+  //         items: getModelSchemaRef(Producto, {includeRelations: true}),
+  //       },
+  //     },
+  //   },
+  // })
+  // async getProductImage(
+  //   // @param.filter(Producto) filter?: Filter<Producto>,
+  //   @param.path.number('id_producto') id_producto: number,
+  // ): Promise<string> {
+  //   return this.productoRepository.findById(id_producto)
+  //     .then((prod) => {
+  //       if (prod.nombre_imagen) {
+  //         return this.dev_base64(prod.nombre_imagen);
+  //       } else {
+  //         return "";
+  //       }
+  //     })
+  // }
+
+  //
+  @get('/productos-paginacion/{cant_total}/{cant_por_pagina}/{multiplicador}')
+  @response(200, {
+    description: 'Producto image',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'array',
+          items: getModelSchemaRef(Producto, {includeRelations: true}),
+        },
+      },
+    },
+  })
+  async getProductPagination(
+    // @param.filter(Producto) filter?: Filter<Producto>,
+    @param.path.number('cant_total') cant_total: number,
+    @param.path.number('cant_por_pagina') cant_por_pagina: number,
+    @param.path.number('multiplicador') multiplicador: number
+  ): Promise<any[]> {
+    return await this.productoRepository.find({
+      limit: (multiplicador - 1) * cant_por_pagina + cant_por_pagina
+    }).then((prods) => {
+      let n_productos = [];
+      for (let i = (multiplicador - 1) * cant_por_pagina; i < (multiplicador - 1) * cant_por_pagina + cant_por_pagina; i++) {
+        n_productos.push(prods[i])
+        if (i == cant_total - 1) {
+          break
+        }
+      }
+      return n_productos
+    }).catch((error) => {
+      return [{"Error": error}]
+    })
+
   }
 }
