@@ -9,7 +9,7 @@ export class CheckoutsRepository extends DefaultCrudRepository<
   CheckoutsRelations
 > {
   constructor(
-    @inject('datasources.proy_ecommerce') dataSource: ProyEcommerceDataSource,
+    @inject('datasources.proy-ecommerce') dataSource: ProyEcommerceDataSource,
   ) {
     super(Checkouts, dataSource);
   }

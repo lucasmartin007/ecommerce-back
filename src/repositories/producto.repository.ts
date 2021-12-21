@@ -9,7 +9,7 @@ export class ProductoRepository extends DefaultCrudRepository<
   ProductoRelations
 > {
   constructor(
-    @inject('datasources.proy_ecommerce') dataSource: ProyEcommerceDataSource,
+    @inject('datasources.proy-ecommerce') dataSource: ProyEcommerceDataSource,
   ) {
     super(Producto, dataSource);
   }

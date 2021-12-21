@@ -9,7 +9,7 @@ export class OrdenesProductosRepository extends DefaultCrudRepository<
   OrdenesProductosRelations
 > {
   constructor(
-    @inject('datasources.proy_ecommerce') dataSource: ProyEcommerceDataSource,
+    @inject('datasources.proy-ecommerce') dataSource: ProyEcommerceDataSource,
   ) {
     super(OrdenesProductos, dataSource);
   }

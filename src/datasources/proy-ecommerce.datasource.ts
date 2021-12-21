@@ -2,14 +2,14 @@ import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
 import {juggler} from '@loopback/repository';
 
 const config = {
-  name: 'proy_ecommerce',
+  name: 'proy-ecommerce',
   connector: 'mysql',
   url: '',
   host: 'localhost',
   port: 3306,
   user: 'root',
   password: '',
-  database: 'proy_ecommerce'
+  database: 'proy-ecommerce'
 };
 
 // Observe application's life cycle to disconnect the datasource when
@@ -19,11 +19,11 @@ const config = {
 @lifeCycleObserver('datasource')
 export class ProyEcommerceDataSource extends juggler.DataSource
   implements LifeCycleObserver {
-  static dataSourceName = 'proy_ecommerce';
+  static dataSourceName = 'proy-ecommerce';
   static readonly defaultConfig = config;
 
   constructor(
-    @inject('datasources.config.proy_ecommerce', {optional: true})
+    @inject('datasources.config.proy-ecommerce', {optional: true})
     dsConfig: object = config,
   ) {
     super(dsConfig);
