@@ -64,4 +64,4 @@ typings/
 *.tsbuildinfo
 
 ######
-/src/datasources/proy-ecommerce.datasource.ts
+src/datasources/proy-ecommerce.datasource.ts
